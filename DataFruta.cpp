@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -131,6 +132,16 @@ class ListaIdades : public Lista {
 	solicita a digita��o de cada um deles
 	*/	
 	void entradaDeDados() {
+		int qtd_idades; 
+		cout << "Informe a quantidade de elementos que existirao na lista de idade: " ;
+		cin >> qtd_idades;
+
+		for( int i=0; i<qtd_idades; i++){
+			int idade; 
+			cout << "Digite a idade " << i+1 << ":"<<endl;
+			cin >> idade;
+			lista.push_back(idade);
+		}
 		
 	}
 	
@@ -139,10 +150,22 @@ class ListaIdades : public Lista {
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar a menor das idades" << endl;
+		if(lista.empty()){
+			cout << "Não há termos na lista de idade !" << endl;
+		} else {
+			int idade_menor = *min_element(lista.begin(), lista.end());
+			cout << "A menor idade: " << idade_menor << endl;
+		}
 	}
+
 	void mostraMaior() {
-		cout << "aqui vai mostrar a maior das idades" << endl;
+		if(lista.empty()){
+			cout << "Não há termos na lista de idade !" << endl;
+		} else {
+			int idade_maior = *max_element(lista.begin(), lista.end());
+			cout << "A maior idade: " << idade_maior << endl;
+		
+		}
 	}
 };
  
