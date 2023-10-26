@@ -99,9 +99,9 @@ class ListaSalarios : public Lista {
 	public:
 
 	void entradaDeDados() {
-		int qtd_salarios;
-		double aux_salario;
-		bool verifica = false;
+		int qtd_salarios, n;
+		double aux_salario, aux;
+		bool verifica = false, trocou;
 
 		cout << "Informe a quantidade de salarios";
 		cin >> qtd_salarios;
@@ -117,13 +117,36 @@ class ListaSalarios : public Lista {
 			}else{
 				cout << "Informe um valor maior que 0";
 			}
+            n = lista.size() - 1;
+		 do {
+            trocou = false;
+            for (int j = 0; j < n; j++) {
+                if (lista[j] > lista[j + 1]) {
+                    aux = lista[j];
+                    lista[j] = lista[j + 1];
+                    lista[j + 1] = aux;
+                    trocou = true;
+                }
+            }
+            n--;
+        } while (trocou);
 
 		}while(verifica != true);
+
 		
 	}
 			
 	void mostraMediana() {
-		
+
+		int aux_cont;
+		if(lista.size() % 2 != 0){
+			aux_cont = lista.size()/2;
+		for(int i=0; i < lista.size(); i++){
+			if(lista[i] == lista[aux_cont]){
+              cout << "A mediana e: " << lista[i];
+			}
+		}
+	}
 	}
 	
 	void mostraMenor() {
@@ -131,6 +154,7 @@ class ListaSalarios : public Lista {
 	}
 	
 	void mostraMaior() {
+	}
 	
 	
 };
