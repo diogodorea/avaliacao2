@@ -9,11 +9,6 @@ class Data {
 	int dia, mes, ano;
 	public:
 	
-	/*
-	O m�todo abaixo retornar� -1 se d1 � anterior a d2
-	Retornar� 0 se d1 = d2
-	Retornar� +1 se d1 � posterior a d2
-	*/	
 	static int compara(Data d1, Data d2) { 
 		if (d1.ano < d2.ano){
 			return -1;
@@ -181,22 +176,41 @@ class ListaSalarios : public Lista {
 			
 	void mostraMediana() {
 
-		int aux_cont;
+		int aux_cont, aux_cont1, aux_cont2;
 		if(lista.size() % 2 != 0){
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
-            cout << "A mediana e: " << lista[i];
+            cout << "A mediana e: " << lista[i] << endl;
 			}
 		}
-	}
+	}else {
+		 aux_cont1 = (lista.size()/2)-1;
+		 aux_cont2 = (lista.size()/2);
+		 cout << "A mediana do salario e " << (lista[aux_cont1] + lista[aux_cont2]) /2 << endl;
+	  }
 	}
 	
 	void mostraMenor() {
-	
+	double num_menor = 99999999;
+
+		for(int i=0; i < lista.size(); i++){
+			if(lista[i] < num_menor ){
+				num_menor = lista[i];
+			}
+		}
+		  cout << "O menor dos salarios e " << num_menor << endl;
 	}
 	
 	void mostraMaior() {
+		double num_maior = 1;
+
+			for(int i=0; i < lista.size(); i++){
+				if(lista[i] > num_maior){
+					num_maior = lista[i];
+				}
+			}
+		cout << "O maior dos salarios e " << num_maior << endl;
 	}
 	
 	
