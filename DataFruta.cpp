@@ -67,6 +67,13 @@ class ListaNomes : public Lista{
 	}
 		
 	void mostraMediana() {
+		sort(lista.begin(), lista.end());
+		int n = lista.size();
+		if (n%2 != 0){
+			cout << "Mediana encontrada: " << lista[n/2] << endl;
+		} else {
+			cout << "Mediana encontrada: " << lista[n/2-1] << endl;
+		}
 		cout << "Aqui vai mostrar a mediana da lista de strings" << endl;
 	}
 	
