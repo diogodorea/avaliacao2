@@ -77,12 +77,13 @@ class ListaNomes : public Lista{
 	}
 	
 	void mostraMenor() {
-		cout << "Menor valor...(ou seja primeiro nome ordem alfabética):" << endl;
+		cout << "Menor valor...(ou seja primeiro nome ordem alfabetica):" << endl;
 		cout << lista.front() << endl;
 	}
 	
 	void mostraMaior() {
-		cout << "aqui vai mostrar o ultimo nome alfabeticamente" << endl;
+		cout << "Maior valor...(ou seja ultimo nome ordem alfabetica):" << endl;
+		cout << lista.back() << endl << endl;
 	}
 };
 
@@ -235,15 +236,15 @@ int main () {
 	listaDeListas.push_back(&listaNomes);
 	
 	ListaDatas listaDatas;
-	//listaDatas.entradaDeDados();
+	listaDatas.entradaDeDados();
 	listaDeListas.push_back(&listaDatas);
 	
 	ListaSalarios listaSalarios;
-	//listaSalarios.entradaDeDados();
+	listaSalarios.entradaDeDados();
 	listaDeListas.push_back(&listaSalarios);
 	
 	ListaIdades listaIdades;
-	//listaIdades.entradaDeDados();
+	listaIdades.entradaDeDados();
 	listaDeListas.push_back(&listaIdades);
 	
 	for (Lista* l : listaDeListas) {
