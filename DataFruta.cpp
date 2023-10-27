@@ -53,18 +53,42 @@ class ListaNomes : public Lista{
 	solicita a digita��o de cada um deles
 	*/	
 	void entradaDeDados() {
-		lista.push_back("Teste");
-	}
+		int nEntradas;
+		cout << "Quantos nomes para acrescentar a lista?" << endl;
+		cin >> nEntradas;
+
 		
+		if (nEntradas >=1){
+			cin.ignore();
+			for (int i=0 ; i < nEntradas; i++){
+				string  nome;
+				cout << "Informe o nome: " << (i+1) << ":" << endl;
+				getline(cin, nome);
+				lista.push_back(nome);
+			}
+		} else{
+			cout << "Entrada invalida." << endl;
+		}
+	}
+	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de strings" << endl;
+		sort(lista.begin(),lista.end());
+		int n = lista.size();
+		if (n%2 != 0){
+			cout << "Mediana encontrada: " << lista[n/2] << endl;
+		} else {
+			cout << "Mediana encontrada: " << lista[n/2-1] << endl;
+		}
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar o primeiro nome alfabeticamente" << endl;
+		cout << "Menor valor...(ou seja primeiro nome ordem alfabetica):" << endl;
+		cout << lista.front() << endl;
 	}
+	
 	void mostraMaior() {
-		cout << "aqui vai mostrar o ultimo nome alfabeticamente" << endl;
+		cout << "Maior valor...(ou seja ultimo nome ordem alfabetica):" << endl;
+		cout << lista.back() << endl << endl;
 	}
 };
 
@@ -119,7 +143,7 @@ class ListaSalarios : public Lista {
 				cout << "Informe um valor maior que 0";
 			}
             n = lista.size() - 1;
-		 do {
+		do {
             trocou = false;
             for (int j = 0; j < n; j++) {
                 if (lista[j] > lista[j + 1]) {
@@ -144,7 +168,7 @@ class ListaSalarios : public Lista {
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
-              cout << "A mediana e: " << lista[i];
+            cout << "A mediana e: " << lista[i];
 			}
 		}
 	}
