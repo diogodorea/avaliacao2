@@ -125,12 +125,7 @@ class ListaIdades : public Lista {
 	vector<int> lista;
 	
 	public:
-		
-		/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
+			
 	void entradaDeDados() {
 		int qtd_idades; 
 		cout << "Informe a quantidade de elementos que existirao na lista de idade: " ;
@@ -146,7 +141,22 @@ class ListaIdades : public Lista {
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de idades" << endl;
+		if (lista.empty()) {
+        cout << "Não há termos na lista de idade!" << endl;
+    } else {
+        sort(lista.begin(), lista.end());
+
+        int n = lista.size();
+        double mediana;
+
+        if (n % 2 == 1) {
+            mediana = lista[n / 2];
+        } else {
+            mediana = (lista[n / 2 - 1] + lista[n / 2]) / 2.0;
+        }
+
+        cout << "A mediana da lista de idades eh: " << mediana << endl;
+    	}
 	}
 	
 	void mostraMenor() {
