@@ -53,16 +53,21 @@ class ListaNomes : public Lista{
 	solicita a digita��o de cada um deles
 	*/	
 	void entradaDeDados() {
-		int n;
+		int nEntradas;
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
-		cin >> n;
-		cin.ignore();
+		cin >> nEntradas;
 
-		for (int i=0 ; i < n; i++){
-			string  nome;
-			cout << "Informe o nome: " << (i+1) << ":" << endl;
-			getline(cin, nome);
-			lista.push_back(nome);
+		
+		if (nEntradas >=1){
+			cin.ignore();
+			for (int i=0 ; i < nEntradas; i++){
+				string  nome;
+				cout << "Informe o nome: " << (i+1) << ":" << endl;
+				getline(cin, nome);
+				lista.push_back(nome);
+			}
+		} else{
+			cout << "Entrada invalida." << endl;
 		}
 	}
 	
