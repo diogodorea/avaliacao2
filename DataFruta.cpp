@@ -65,21 +65,22 @@ class ListaNomes : public Lista{
 			lista.push_back(nome);
 		}
 	}
-		
+	
 	void mostraMediana() {
-		sort(lista.begin(), lista.end());
+		sort(lista.begin(),lista.end());
 		int n = lista.size();
 		if (n%2 != 0){
 			cout << "Mediana encontrada: " << lista[n/2] << endl;
 		} else {
 			cout << "Mediana encontrada: " << lista[n/2-1] << endl;
 		}
-		cout << "Aqui vai mostrar a mediana da lista de strings" << endl;
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar o primeiro nome alfabeticamente" << endl;
+		cout << "Menor valor...(ou seja primeiro nome ordem alfabética):" << endl;
+		cout << lista.front() << endl;
 	}
+	
 	void mostraMaior() {
 		cout << "aqui vai mostrar o ultimo nome alfabeticamente" << endl;
 	}
@@ -136,7 +137,7 @@ class ListaSalarios : public Lista {
 				cout << "Informe um valor maior que 0";
 			}
             n = lista.size() - 1;
-		 do {
+		do {
             trocou = false;
             for (int j = 0; j < n; j++) {
                 if (lista[j] > lista[j + 1]) {
@@ -161,7 +162,7 @@ class ListaSalarios : public Lista {
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
-              cout << "A mediana e: " << lista[i];
+            cout << "A mediana e: " << lista[i];
 			}
 		}
 	}
@@ -234,15 +235,15 @@ int main () {
 	listaDeListas.push_back(&listaNomes);
 	
 	ListaDatas listaDatas;
-	listaDatas.entradaDeDados();
+	//listaDatas.entradaDeDados();
 	listaDeListas.push_back(&listaDatas);
 	
 	ListaSalarios listaSalarios;
-	listaSalarios.entradaDeDados();
+	//listaSalarios.entradaDeDados();
 	listaDeListas.push_back(&listaSalarios);
 	
 	ListaIdades listaIdades;
-	listaIdades.entradaDeDados();
+	//listaIdades.entradaDeDados();
 	listaDeListas.push_back(&listaIdades);
 	
 	for (Lista* l : listaDeListas) {
