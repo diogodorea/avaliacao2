@@ -15,7 +15,25 @@ class Data {
 	Retornar� +1 se d1 � posterior a d2
 	*/	
 	static int compara(Data d1, Data d2) { 
-		return 0;
+		if (d1.ano < d2.ano){
+			return -1;
+		}else if(d1.ano < d2.ano){
+			return 1;
+		}else {
+			if (d1.mes < d2.mes){
+				return -1;
+			}else if( d1.mes > d2.mes){
+				return 1;
+			}else {
+				if(d1.dia < d2.dia){
+					return -1;
+				} else if( d1.dia > d2.dia){
+					return 1;
+				}else {
+					return 0;
+				}
+			}
+		}
 	}
 	
 	Data (int _dia, int _mes, int _ano) {
