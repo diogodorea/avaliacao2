@@ -12,7 +12,7 @@ class Data {
 	static int compara(Data d1, Data d2) { 
 		if (d1.ano < d2.ano){
 			return -1;
-		}else if(d1.ano < d2.ano){
+		}else if(d1.ano > d2.ano){
 			return 1;
 		}else {
 			if (d1.mes < d2.mes){
@@ -30,11 +30,11 @@ class Data {
 			}
 		}
 	}
-	
+
 	Data (int _dia, int _mes, int _ano) {
-		dia = _dia;
-		mes = _mes;
-		ano = _ano;
+		this->dia = _dia;
+		this->mes = _mes;
+		this->ano = _ano;
 	}
 	string toString() {
 		string ret = "";
@@ -60,17 +60,11 @@ class ListaNomes : public Lista{
 	
 	public:
 	
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
 		cin >> nEntradas;
 
-		
 		if (nEntradas >=1){
 			cin.ignore();
 			for (int i=0 ; i < nEntradas; i++){
@@ -110,24 +104,55 @@ class ListaDatas : public Lista {
 	
 	public:
 		
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() {
-		
+		int nEntradas;
+		cout << "Quantas datas para acrescentar a lista?" << endl;
+		cin >> nEntradas;
+
+		if (nEntradas >=1){
+			cin.ignore();
+			for (int i=0 ; i < nEntradas; i++){
+				int auxDia, auxMes, AuxAno;
+				cout << "Informe o dia para a data " << (i+1) << ":" << endl;
+				cin >> auxDia;
+				cout << "Informe o mes para a data " << (i+1) << ":" << endl;
+				cin >> auxMes;
+				cout << "Informe o ano para a data " << (i+1) << ":" << endl;
+				cin >> AuxAno;
+				Data data(auxDia, auxMes, AuxAno);
+				lista.push_back(data);
+			}
+		} else{
+			cout << "Entrada invalida." << endl;
+		}
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de datas" << endl;
+		
+		int n = lista.size();
+		for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (Data::compara(lista[j], lista[j + 1]) == 1) {
+                    // Troca as datas se estiverem fora de ordem
+                    swap(lista[j], lista[j + 1]);
+                }
+            }
+        }
+
+		if (n%2 != 0){
+			cout << "Mediana encontrada: " << lista[n/2].toString() << endl;
+		} else {
+			cout << "Mediana encontrada: " << lista[n/2-1].toString() << endl;
+		}
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
+		cout << "Primeira data ordem cronológica: " << endl;
+		cout << lista.front().toString();
 	}
 	void mostraMaior() {
-		cout << "aqui vai mostrar a ultima data cronologicamente" << endl << endl;
+		cout << "Ultima data ordem cronológica: " << endl;
+		cout << lista.back().toString();
 	}
 };
 
@@ -274,7 +299,7 @@ class ListaIdades : public Lista {
 		}
 	}
 };
- 
+
 int main () {
 	vector<Lista*> listaDeListas;
 	
@@ -301,5 +326,4 @@ int main () {
 	}
 	
 }
-    
 
