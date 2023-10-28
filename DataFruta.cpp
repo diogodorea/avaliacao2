@@ -9,11 +9,6 @@ class Data {
 	int dia, mes, ano;
 	public:
 	
-	/*
-	O m�todo abaixo retornar� -1 se d1 � anterior a d2
-	Retornar� 0 se d1 = d2
-	Retornar� +1 se d1 � posterior a d2
-	*/	
 	static int compara(Data d1, Data d2) { 
 		if (d1.ano < d2.ano){
 			return -1;
@@ -37,9 +32,9 @@ class Data {
 	}
 	
 	Data (int _dia, int _mes, int _ano) {
-		dia = _dia;
-		mes = _mes;
-		ano = _ano;
+		this->dia = _dia;
+		this->mes = _mes;
+		this->ano = _ano;
 	}
 	string toString() {
 		string ret = "";
@@ -115,12 +110,27 @@ class ListaDatas : public Lista {
 	
 	public:
 		
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() {
+		int nEntradas;
+		cout << "Quantas datas para acrescentar a lista?" << endl;
+		cin >> nEntradas;
+
+		if (nEntradas >=1){
+			cin.ignore();
+			for (int i=0 ; i < nEntradas; i++){
+				int auxDia, auxMes, AuxAno;
+				cout << "Informe o dia para a data " << (i+1) << ":" << endl;
+				cin >> auxDia;
+				cout << "Informe o mes para a data " << (i+1) << ":" << endl;
+				cin >> auxMes;
+				cout << "Informe o ano para a data " << (i+1) << ":" << endl;
+				cin >> AuxAno;
+				Data data(auxDia, auxMes, AuxAno);
+				lista.push_back(data);
+			}
+		} else{
+			cout << "Entrada invalida." << endl;
+		}
 		
 	}
 	
@@ -181,22 +191,41 @@ class ListaSalarios : public Lista {
 			
 	void mostraMediana() {
 
-		int aux_cont;
+		int aux_cont, aux_cont1, aux_cont2;
 		if(lista.size() % 2 != 0){
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
-            cout << "A mediana e: " << lista[i];
+            cout << "A mediana e: " << lista[i] << endl;
 			}
 		}
-	}
+	}else {
+		 aux_cont1 = (lista.size()/2)-1;
+		 aux_cont2 = (lista.size()/2);
+		 cout << "A mediana do salario e " << (lista[aux_cont1] + lista[aux_cont2]) /2 << endl;
+	  }
 	}
 	
 	void mostraMenor() {
-	
+	double num_menor = 99999999;
+
+		for(int i=0; i < lista.size(); i++){
+			if(lista[i] < num_menor ){
+				num_menor = lista[i];
+			}
+		}
+		  cout << "O menor dos salarios e " << num_menor << endl;
 	}
 	
 	void mostraMaior() {
+		double num_maior = 1;
+
+			for(int i=0; i < lista.size(); i++){
+				if(lista[i] > num_maior){
+					num_maior = lista[i];
+				}
+			}
+		cout << "O maior dos salarios e " << num_maior << endl;
 	}
 	
 	
@@ -207,12 +236,7 @@ class ListaIdades : public Lista {
 	vector<int> lista;
 	
 	public:
-		
-		/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
+			
 	void entradaDeDados() {
 		int qtd_idades; 
 		cout << "Informe a quantidade de elementos que existirao na lista de idade: " ;
@@ -228,7 +252,22 @@ class ListaIdades : public Lista {
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de idades" << endl;
+		if (lista.empty()) {
+        cout << "Não há termos na lista de idade!" << endl;
+    } else {
+        sort(lista.begin(), lista.end());
+
+        int n = lista.size();
+        double mediana;
+
+        if (n % 2 == 1) {
+            mediana = lista[n / 2];
+        } else {
+            mediana = (lista[n / 2 - 1] + lista[n / 2]) / 2.0;
+        }
+
+        cout << "A mediana da lista de idades eh: " << mediana << endl;
+    	}
 	}
 	
 	void mostraMenor() {
