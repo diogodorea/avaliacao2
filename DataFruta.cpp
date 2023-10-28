@@ -53,6 +53,7 @@ class Lista {
 	virtual void mostraMediana() =0;
 	virtual void mostraMenor() =0;
 	virtual void mostraMaior() =0;
+	virtual void listarEmOrdem()=0;
 };
 
 class ListaNomes : public Lista{
@@ -65,6 +66,10 @@ class ListaNomes : public Lista{
 	elementos v�o existir na lista e depois
 	solicita a digita��o de cada um deles
 	*/	
+
+		void listarEmOrdem() override{
+	}
+
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
@@ -115,6 +120,11 @@ class ListaDatas : public Lista {
 	elementos v�o existir na lista e depois
 	solicita a digita��o de cada um deles
 	*/	
+
+	void listarEmOrdem(){
+
+	}
+
 	void entradaDeDados() {
 		
 	}
@@ -136,10 +146,28 @@ class ListaSalarios : public Lista {
 	
 	public:
 
+	void listarEmOrdem() override{
+ 		bool trocou;
+		double aux;
+		int n = lista.size() - 1;
+		do {
+            trocou = false;
+            for (int j = 0; j < n; j++) {
+                if (lista[j] > lista[j + 1]) {
+                    aux = lista[j];
+                    lista[j] = lista[j + 1];
+                    lista[j + 1] = aux;
+                    trocou = true;
+                }
+            }
+            n--;
+        } while (trocou);
+	}
+
 	void entradaDeDados() {
-		int qtd_salarios, n;
-		double aux_salario, aux;
-		bool verifica = false, trocou;
+		int qtd_salarios;
+		double aux_salario;
+		bool verifica = false;
 
 		cout << "Informe a quantidade de salarios";
 		cin >> qtd_salarios;
@@ -154,20 +182,7 @@ class ListaSalarios : public Lista {
 		}
 			}else{
 				cout << "Informe um valor maior que 0";
-			}
-            n = lista.size() - 1;
-		do {
-            trocou = false;
-            for (int j = 0; j < n; j++) {
-                if (lista[j] > lista[j + 1]) {
-                    aux = lista[j];
-                    lista[j] = lista[j + 1];
-                    lista[j + 1] = aux;
-                    trocou = true;
-                }
-            }
-            n--;
-        } while (trocou);
+				}	
 
 		}while(verifica != true);
 
@@ -221,6 +236,10 @@ class ListaIdades : public Lista {
 	vector<int> lista;
 	
 	public:
+
+	void listarEmOrdem() override{
+ 		
+	}
 			
 	void entradaDeDados() {
 		int qtd_idades; 
