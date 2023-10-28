@@ -12,7 +12,7 @@ class Data {
 	static int compara(Data d1, Data d2) { 
 		if (d1.ano < d2.ano){
 			return -1;
-		}else if(d1.ano < d2.ano){
+		}else if(d1.ano > d2.ano){
 			return 1;
 		}else {
 			if (d1.mes < d2.mes){
@@ -30,7 +30,7 @@ class Data {
 			}
 		}
 	}
-	
+
 	Data (int _dia, int _mes, int _ano) {
 		this->dia = _dia;
 		this->mes = _mes;
@@ -70,7 +70,6 @@ class ListaNomes : public Lista{
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
 		cin >> nEntradas;
 
-		
 		if (nEntradas >=1){
 			cin.ignore();
 			for (int i=0 ; i < nEntradas; i++){
@@ -131,11 +130,25 @@ class ListaDatas : public Lista {
 		} else{
 			cout << "Entrada invalida." << endl;
 		}
-		
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de datas" << endl;
+		//sort(lista.begin(),lista.end());
+		int n = lista.size();
+		for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (Data::compara(lista[j], lista[j + 1]) == 1) {
+                    // Troca as datas se estiverem fora de ordem
+                    swap(lista[j], lista[j + 1]);
+                }
+            }
+        }
+
+		if (n%2 != 0){
+			cout << "Mediana encontrada: " << lista[n/2].toString() << endl;
+		} else {
+			cout << "Mediana encontrada: " << lista[n/2-1].toString() << endl;
+		}
 	}
 	
 	void mostraMenor() {
@@ -294,7 +307,7 @@ int main () {
 	vector<Lista*> listaDeListas;
 	
 	ListaNomes listaNomes;
-	listaNomes.entradaDeDados();
+	//listaNomes.entradaDeDados();
 	listaDeListas.push_back(&listaNomes);
 	
 	ListaDatas listaDatas;
@@ -302,11 +315,11 @@ int main () {
 	listaDeListas.push_back(&listaDatas);
 	
 	ListaSalarios listaSalarios;
-	listaSalarios.entradaDeDados();
+	//listaSalarios.entradaDeDados();
 	listaDeListas.push_back(&listaSalarios);
 	
 	ListaIdades listaIdades;
-	listaIdades.entradaDeDados();
+	//listaIdades.entradaDeDados();
 	listaDeListas.push_back(&listaIdades);
 	
 	for (Lista* l : listaDeListas) {
