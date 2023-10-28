@@ -53,6 +53,7 @@ class Lista {
 	virtual void mostraMediana() =0;
 	virtual void mostraMenor() =0;
 	virtual void mostraMaior() =0;
+	virtual void listarEmOrdem()=0;
 };
 
 class ListaNomes : public Lista{
@@ -60,6 +61,10 @@ class ListaNomes : public Lista{
 	
 	public:
 	
+
+		void listarEmOrdem() override{
+	}
+
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
@@ -104,6 +109,11 @@ class ListaDatas : public Lista {
 	
 	public:
 		
+
+	void listarEmOrdem(){
+
+	}
+
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantas datas para acrescentar a lista?" << endl;
@@ -128,22 +138,7 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMediana() {
-		
-		int n = lista.size();
-		for (int i = 0; i < n - 1; i++) {
-            for (int j = 0; j < n - i - 1; j++) {
-                if (Data::compara(lista[j], lista[j + 1]) == 1) {
-                    // Troca as datas se estiverem fora de ordem
-                    swap(lista[j], lista[j + 1]);
-                }
-            }
-        }
-
-		if (n%2 != 0){
-			cout << "Mediana encontrada: " << lista[n/2].toString() << endl;
-		} else {
-			cout << "Mediana encontrada: " << lista[n/2-1].toString() << endl;
-		}
+		cout << "Aqui vai mostrar a mediana 	da lista de datas" << endl;
 	}
 	
 	void mostraMenor() {
@@ -161,10 +156,11 @@ class ListaSalarios : public Lista {
 	
 	public:
 
+
 	void entradaDeDados() {
-		int qtd_salarios, n;
-		double aux_salario, aux;
-		bool verifica = false, trocou;
+		int qtd_salarios;
+		double aux_salario;
+		bool verifica = false;
 
 		cout << "Informe a quantidade de salarios";
 		cin >> qtd_salarios;
@@ -179,8 +175,17 @@ class ListaSalarios : public Lista {
 		}
 			}else{
 				cout << "Informe um valor maior que 0";
-			}
-            n = lista.size() - 1;
+				}	
+
+		}while(verifica != true);
+
+		
+	}
+
+	void listarEmOrdem() override{
+ 		bool trocou;
+		double aux;
+		int n = lista.size() - 1;
 		do {
             trocou = false;
             for (int j = 0; j < n; j++) {
@@ -193,12 +198,9 @@ class ListaSalarios : public Lista {
             }
             n--;
         } while (trocou);
-
-		}while(verifica != true);
-
-		
 	}
-			
+
+
 	void mostraMediana() {
 
 		int aux_cont, aux_cont1, aux_cont2;
@@ -246,6 +248,10 @@ class ListaIdades : public Lista {
 	vector<int> lista;
 	
 	public:
+
+	void listarEmOrdem() override{
+ 		
+	}
 			
 	void entradaDeDados() {
 		int qtd_idades; 
