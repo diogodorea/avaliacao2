@@ -12,7 +12,7 @@ class Data {
 	static int compara(Data d1, Data d2) { 
 		if (d1.ano < d2.ano){
 			return -1;
-		}else if(d1.ano < d2.ano){
+		}else if(d1.ano > d2.ano){
 			return 1;
 		}else {
 			if (d1.mes < d2.mes){
@@ -30,11 +30,11 @@ class Data {
 			}
 		}
 	}
-	
+
 	Data (int _dia, int _mes, int _ano) {
-		dia = _dia;
-		mes = _mes;
-		ano = _ano;
+		this->dia = _dia;
+		this->mes = _mes;
+		this->ano = _ano;
 	}
 	string toString() {
 		string ret = "";
@@ -61,11 +61,6 @@ class ListaNomes : public Lista{
 	
 	public:
 	
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 
 		void listarEmOrdem() override{
 	}
@@ -75,7 +70,6 @@ class ListaNomes : public Lista{
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
 		cin >> nEntradas;
 
-		
 		if (nEntradas >=1){
 			cin.ignore();
 			for (int i=0 ; i < nEntradas; i++){
@@ -115,18 +109,32 @@ class ListaDatas : public Lista {
 	
 	public:
 		
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 
 	void listarEmOrdem(){
 
 	}
 
 	void entradaDeDados() {
-		
+		int nEntradas;
+		cout << "Quantas datas para acrescentar a lista?" << endl;
+		cin >> nEntradas;
+
+		if (nEntradas >=1){
+			cin.ignore();
+			for (int i=0 ; i < nEntradas; i++){
+				int auxDia, auxMes, AuxAno;
+				cout << "Informe o dia para a data " << (i+1) << ":" << endl;
+				cin >> auxDia;
+				cout << "Informe o mes para a data " << (i+1) << ":" << endl;
+				cin >> auxMes;
+				cout << "Informe o ano para a data " << (i+1) << ":" << endl;
+				cin >> AuxAno;
+				Data data(auxDia, auxMes, AuxAno);
+				lista.push_back(data);
+			}
+		} else{
+			cout << "Entrada invalida." << endl;
+		}
 	}
 	
 	void mostraMediana() {
@@ -134,10 +142,12 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
+		cout << "Primeira data ordem cronológica: " << endl;
+		cout << lista.front().toString();
 	}
 	void mostraMaior() {
-		cout << "aqui vai mostrar a ultima data cronologicamente" << endl << endl;
+		cout << "Ultima data ordem cronológica: " << endl;
+		cout << lista.back().toString();
 	}
 };
 
@@ -146,23 +156,6 @@ class ListaSalarios : public Lista {
 	
 	public:
 
-	void listarEmOrdem() override{
- 		bool trocou;
-		double aux;
-		int n = lista.size() - 1;
-		do {
-            trocou = false;
-            for (int j = 0; j < n; j++) {
-                if (lista[j] > lista[j + 1]) {
-                    aux = lista[j];
-                    lista[j] = lista[j + 1];
-                    lista[j + 1] = aux;
-                    trocou = true;
-                }
-            }
-            n--;
-        } while (trocou);
-	}
 
 	void entradaDeDados() {
 		int qtd_salarios;
@@ -188,7 +181,26 @@ class ListaSalarios : public Lista {
 
 		
 	}
-			
+
+	void listarEmOrdem() override{
+ 		bool trocou;
+		double aux;
+		int n = lista.size() - 1;
+		do {
+            trocou = false;
+            for (int j = 0; j < n; j++) {
+                if (lista[j] > lista[j + 1]) {
+                    aux = lista[j];
+                    lista[j] = lista[j + 1];
+                    lista[j + 1] = aux;
+                    trocou = true;
+                }
+            }
+            n--;
+        } while (trocou);
+	}
+
+
 	void mostraMediana() {
 
 		int aux_cont, aux_cont1, aux_cont2;
@@ -293,7 +305,7 @@ class ListaIdades : public Lista {
 		}
 	}
 };
- 
+
 int main () {
 	vector<Lista*> listaDeListas;
 	
@@ -320,5 +332,4 @@ int main () {
 	}
 	
 }
-    
 
