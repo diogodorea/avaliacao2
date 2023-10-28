@@ -152,10 +152,12 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
+		cout << "Primeira data ordem cronológica: " << endl;
+		cout << lista.front().toString();
 	}
 	void mostraMaior() {
-		cout << "aqui vai mostrar a ultima data cronologicamente" << endl << endl;
+		cout << "Ultima data ordem cronológica: " << endl;
+		cout << lista.back().toString();
 	}
 };
 
