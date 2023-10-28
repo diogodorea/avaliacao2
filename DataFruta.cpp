@@ -60,11 +60,6 @@ class ListaNomes : public Lista{
 	
 	public:
 	
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
@@ -133,7 +128,7 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMediana() {
-		//sort(lista.begin(),lista.end());
+		
 		int n = lista.size();
 		for (int i = 0; i < n - 1; i++) {
             for (int j = 0; j < n - i - 1; j++) {
@@ -304,12 +299,12 @@ class ListaIdades : public Lista {
 		}
 	}
 };
- 
+
 int main () {
 	vector<Lista*> listaDeListas;
 	
 	ListaNomes listaNomes;
-	//listaNomes.entradaDeDados();
+	listaNomes.entradaDeDados();
 	listaDeListas.push_back(&listaNomes);
 	
 	ListaDatas listaDatas;
@@ -317,11 +312,11 @@ int main () {
 	listaDeListas.push_back(&listaDatas);
 	
 	ListaSalarios listaSalarios;
-	//listaSalarios.entradaDeDados();
+	listaSalarios.entradaDeDados();
 	listaDeListas.push_back(&listaSalarios);
 	
 	ListaIdades listaIdades;
-	//listaIdades.entradaDeDados();
+	listaIdades.entradaDeDados();
 	listaDeListas.push_back(&listaIdades);
 	
 	for (Lista* l : listaDeListas) {
@@ -331,5 +326,4 @@ int main () {
 	}
 	
 }
-    
 
