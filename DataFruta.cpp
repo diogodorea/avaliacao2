@@ -54,13 +54,14 @@ class Lista {
 	virtual void mostraMenor() =0;
 	virtual void mostraMaior() =0;
 	virtual void listarEmOrdem()=0;
+	virtual void mostrarNElementos()=0;
 };
 
 class ListaNomes : public Lista{
 	vector<string> lista;
 	
 	public:
-	
+	void mostrarNElementos() override {}
 
 		void listarEmOrdem() override{
 	}
@@ -108,7 +109,7 @@ class ListaDatas : public Lista {
 	vector<Data> lista;
 	
 	public:
-		
+		void mostrarNElementos() override {}
 
 	void listarEmOrdem(){
 
@@ -155,7 +156,7 @@ class ListaSalarios : public Lista {
 	vector<float> lista;
 	
 	public:
-
+void mostrarNElementos() override {}
 
 	void entradaDeDados() {
 		int qtd_salarios;
@@ -263,7 +264,7 @@ class ListaIdades : public Lista {
         }
  		
 	}
-			
+	 		
 	void entradaDeDados() {
 		int qtd_idades; 
 		cout << "Informe a quantidade de elementos que existirao na lista de idade: " ;
@@ -320,6 +321,30 @@ class ListaIdades : public Lista {
 		
 		}
 	}
+
+	void mostrarNElementos() override {
+        if (lista.empty()) {
+            cout << "A lista de idades está vazia!" << endl;
+            return;
+        }
+
+        int N;
+        cout << "Digite o numero de elementos que deseja exibir: ";
+        cin >> N;
+		cout << endl << endl;
+
+        cout << "Os primeiros " << N << " elementos da lista de idades em ordem crescente sao:" << endl;
+        int contador = 0;
+        for (int idade : lista) {
+            cout<<idade << " ";
+            contador++;
+            if (contador >= N) {
+                break;
+            }
+        }
+        cout << endl<< endl;
+    }
+
 };
 
 int main () {
@@ -339,7 +364,9 @@ int main () {
 	
 	ListaIdades listaIdades;
 	listaIdades.entradaDeDados();
+	listaIdades.mostrarNElementos();
 	listaDeListas.push_back(&listaIdades);
+	
 	
 	
 	for (Lista* l : listaDeListas) {
@@ -349,4 +376,3 @@ int main () {
 	}
 	
 }
-
