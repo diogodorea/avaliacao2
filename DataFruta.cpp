@@ -190,7 +190,9 @@ class ListaSalarios : public Lista {
 	vector<float> lista;
 	
 	public:
-void mostrarNElementos() override {}
+
+
+
 
 	void entradaDeDados() {
 		int qtd_salarios;
@@ -234,6 +236,28 @@ void mostrarNElementos() override {}
             n--;
         } while (trocou);
 	}
+
+	void mostrarNElementos() override {
+		
+		listarEmOrdem();
+	 	int Num_elementos;
+        cout << "Digite o numero de elementos que deseja exibir: ";
+        cin >> Num_elementos;
+		cout << endl << endl;
+
+        cout << "Os primeiros " << Num_elementos << " elementos da lista de idades em ordem crescente sao:" << endl;
+        int contador = 0;
+        for (int idade : lista) {
+            cout<<idade << " ";
+            contador++;
+            if (contador >= Num_elementos) {
+                break;
+            }
+        }
+        cout << endl<< endl;
+    }
+
+
 
 
 	void mostraMediana() {
@@ -385,6 +409,11 @@ class ListaIdades : public Lista {
 int main () {
 	vector<Lista*> listaDeListas;
 	
+
+	ListaSalarios listaSalarios;
+	listaSalarios.entradaDeDados();
+	listaDeListas.push_back(&listaSalarios);
+	/*
 	ListaNomes listaNomes;
 	listaNomes.entradaDeDados();
 	listaDeListas.push_back(&listaNomes);
@@ -393,18 +422,15 @@ int main () {
 	listaDatas.entradaDeDados();
 	listaDeListas.push_back(&listaDatas);
 	
-	ListaSalarios listaSalarios;
-	listaSalarios.entradaDeDados();
-	listaDeListas.push_back(&listaSalarios);
-	
 	ListaIdades listaIdades;
 	listaIdades.entradaDeDados();
 	listaIdades.mostrarNElementos();
 	listaDeListas.push_back(&listaIdades);
-	
+	*/
 	
 	
 	for (Lista* l : listaDeListas) {
+		l->mostrarNElementos();
 		l->mostraMediana();
 		l->mostraMenor();
 		l->mostraMaior();
