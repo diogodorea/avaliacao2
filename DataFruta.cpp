@@ -208,6 +208,7 @@ class ListaSalarios : public Lista {
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
+            cout << "A mediana e: " << lista[i]<< endl;
             cout << "A mediana e: " << lista[i] << endl;
 			}
 		}
@@ -250,6 +251,16 @@ class ListaIdades : public Lista {
 	public:
 
 	void listarEmOrdem() override{
+		if (lista.empty()) {
+            cout << "A lista de idades está vazia!" << endl;
+        } else {
+            sort(lista.begin(), lista.end());
+            cout << "Listando as idades em ordem crescente:" << endl;
+            for (int idade : lista) {
+                cout << idade << " ";
+            }
+            cout << endl;
+        }
  		
 	}
 			
@@ -261,17 +272,22 @@ class ListaIdades : public Lista {
 		for( int i=0; i<qtd_idades; i++){
 			int idade; 
 			cout << "Digite a idade " << i+1 << ":"<<endl;
-			cin >> idade;
+			while (!(cin >> idade) || idade < 0 || idade > 150){
+				cout << " Idade invalida!" << endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max());
+			}
 			lista.push_back(idade);
 		}
 		
 	}
 	
 	void mostraMediana() {
+		listarEmOrdem();
+
 		if (lista.empty()) {
         cout << "Não há termos na lista de idade!" << endl;
     } else {
-        sort(lista.begin(), lista.end());
 
         int n = lista.size();
         double mediana;
@@ -324,6 +340,7 @@ int main () {
 	ListaIdades listaIdades;
 	listaIdades.entradaDeDados();
 	listaDeListas.push_back(&listaIdades);
+	
 	
 	for (Lista* l : listaDeListas) {
 		l->mostraMediana();
