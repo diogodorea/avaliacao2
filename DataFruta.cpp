@@ -9,15 +9,10 @@ class Data {
 	int dia, mes, ano;
 	public:
 	
-	/*
-	O m�todo abaixo retornar� -1 se d1 � anterior a d2
-	Retornar� 0 se d1 = d2
-	Retornar� +1 se d1 � posterior a d2
-	*/	
 	static int compara(Data d1, Data d2) { 
 		if (d1.ano < d2.ano){
 			return -1;
-		}else if(d1.ano < d2.ano){
+		}else if(d1.ano > d2.ano){
 			return 1;
 		}else {
 			if (d1.mes < d2.mes){
@@ -35,11 +30,11 @@ class Data {
 			}
 		}
 	}
-	
+
 	Data (int _dia, int _mes, int _ano) {
-		dia = _dia;
-		mes = _mes;
-		ano = _ano;
+		this->dia = _dia;
+		this->mes = _mes;
+		this->ano = _ano;
 	}
 	string toString() {
 		string ret = "";
@@ -58,6 +53,7 @@ class Lista {
 	virtual void mostraMediana() =0;
 	virtual void mostraMenor() =0;
 	virtual void mostraMaior() =0;
+	virtual void listarEmOrdem()=0;
 };
 
 class ListaNomes : public Lista{
@@ -65,17 +61,15 @@ class ListaNomes : public Lista{
 	
 	public:
 	
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
+
+		void listarEmOrdem() override{
+	}
+
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantos nomes para acrescentar a lista?" << endl;
 		cin >> nEntradas;
 
-		
 		if (nEntradas >=1){
 			cin.ignore();
 			for (int i=0 ; i < nEntradas; i++){
@@ -115,24 +109,45 @@ class ListaDatas : public Lista {
 	
 	public:
 		
-	/*
-	O m�todo abaixo pergunta ao usu�rios quantos
-	elementos v�o existir na lista e depois
-	solicita a digita��o de cada um deles
-	*/	
+
+	void listarEmOrdem(){
+
+	}
+
 	void entradaDeDados() {
-		
+		int nEntradas;
+		cout << "Quantas datas para acrescentar a lista?" << endl;
+		cin >> nEntradas;
+
+		if (nEntradas >=1){
+			cin.ignore();
+			for (int i=0 ; i < nEntradas; i++){
+				int auxDia, auxMes, AuxAno;
+				cout << "Informe o dia para a data " << (i+1) << ":" << endl;
+				cin >> auxDia;
+				cout << "Informe o mes para a data " << (i+1) << ":" << endl;
+				cin >> auxMes;
+				cout << "Informe o ano para a data " << (i+1) << ":" << endl;
+				cin >> AuxAno;
+				Data data(auxDia, auxMes, AuxAno);
+				lista.push_back(data);
+			}
+		} else{
+			cout << "Entrada invalida." << endl;
+		}
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana da lista de datas" << endl;
+		cout << "Aqui vai mostrar a mediana 	da lista de datas" << endl;
 	}
 	
 	void mostraMenor() {
-		cout << "Aqui vai mostrar a primeira data cronologicamente" << endl;
+		cout << "Primeira data ordem cronológica: " << endl;
+		cout << lista.front().toString();
 	}
 	void mostraMaior() {
-		cout << "aqui vai mostrar a ultima data cronologicamente" << endl << endl;
+		cout << "Ultima data ordem cronológica: " << endl;
+		cout << lista.back().toString();
 	}
 };
 
@@ -141,10 +156,11 @@ class ListaSalarios : public Lista {
 	
 	public:
 
+
 	void entradaDeDados() {
-		int qtd_salarios, n;
-		double aux_salario, aux;
-		bool verifica = false, trocou;
+		int qtd_salarios;
+		double aux_salario;
+		bool verifica = false;
 
 		cout << "Informe a quantidade de salarios";
 		cin >> qtd_salarios;
@@ -159,8 +175,17 @@ class ListaSalarios : public Lista {
 		}
 			}else{
 				cout << "Informe um valor maior que 0";
-			}
-            n = lista.size() - 1;
+				}	
+
+		}while(verifica != true);
+
+		
+	}
+
+	void listarEmOrdem() override{
+ 		bool trocou;
+		double aux;
+		int n = lista.size() - 1;
 		do {
             trocou = false;
             for (int j = 0; j < n; j++) {
@@ -173,30 +198,47 @@ class ListaSalarios : public Lista {
             }
             n--;
         } while (trocou);
-
-		}while(verifica != true);
-
-		
 	}
-			
+
+
 	void mostraMediana() {
 
-		int aux_cont;
+		int aux_cont, aux_cont1, aux_cont2;
 		if(lista.size() % 2 != 0){
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
             cout << "A mediana e: " << lista[i]<< endl;
+            cout << "A mediana e: " << lista[i] << endl;
 			}
 		}
-	}
+	}else {
+		 aux_cont1 = (lista.size()/2)-1;
+		 aux_cont2 = (lista.size()/2);
+		 cout << "A mediana do salario e " << (lista[aux_cont1] + lista[aux_cont2]) /2 << endl;
+	  }
 	}
 	
 	void mostraMenor() {
-	
+	double num_menor = 99999999;
+
+		for(int i=0; i < lista.size(); i++){
+			if(lista[i] < num_menor ){
+				num_menor = lista[i];
+			}
+		}
+		  cout << "O menor dos salarios e " << num_menor << endl;
 	}
 	
 	void mostraMaior() {
+		double num_maior = 1;
+
+			for(int i=0; i < lista.size(); i++){
+				if(lista[i] > num_maior){
+					num_maior = lista[i];
+				}
+			}
+		cout << "O maior dos salarios e " << num_maior << endl;
 	}
 	
 	
@@ -207,6 +249,20 @@ class ListaIdades : public Lista {
 	vector<int> lista;
 	
 	public:
+
+	void listarEmOrdem() override{
+		if (lista.empty()) {
+            cout << "A lista de idades está vazia!" << endl;
+        } else {
+            sort(lista.begin(), lista.end());
+            cout << "Listando as idades em ordem crescente:" << endl;
+            for (int idade : lista) {
+                cout << idade << " ";
+            }
+            cout << endl;
+        }
+ 		
+	}
 			
 	void entradaDeDados() {
 		int qtd_idades; 
@@ -219,7 +275,7 @@ class ListaIdades : public Lista {
 			while (!(cin >> idade) || idade < 0 || idade > 150){
 				cout << " Idade invalida!" << endl;
 				cin.clear();
-				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				cin.ignore(numeric_limits<streamsize>::max());
 			}
 			lista.push_back(idade);
 		}
@@ -227,10 +283,11 @@ class ListaIdades : public Lista {
 	}
 	
 	void mostraMediana() {
+		listarEmOrdem();
+
 		if (lista.empty()) {
         cout << "Não há termos na lista de idade!" << endl;
     } else {
-        sort(lista.begin(), lista.end());
 
         int n = lista.size();
         double mediana;
@@ -264,7 +321,7 @@ class ListaIdades : public Lista {
 		}
 	}
 };
- 
+
 int main () {
 	vector<Lista*> listaDeListas;
 	
@@ -284,6 +341,7 @@ int main () {
 	listaIdades.entradaDeDados();
 	listaDeListas.push_back(&listaIdades);
 	
+	
 	for (Lista* l : listaDeListas) {
 		l->mostraMediana();
 		l->mostraMenor();
@@ -291,5 +349,4 @@ int main () {
 	}
 	
 }
-    
 
