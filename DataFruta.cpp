@@ -115,10 +115,27 @@ class ListaDatas : public Lista {
 	public:
 		void mostrarNElementos() override {}
 
-	void listarEmOrdem(){
+	void listarEmOrdem()override{
 
+		bool trocou;
+		
+		do {
+            trocou = false;
+            for (int i = 0; i < lista.size()-1; i++) {
+                    
+                    int compara = Data::compara(lista[i], lista[i+1]);
+
+                if (compara == 1) {
+                    Data aux(3,3,3);
+                    aux = lista[i];
+                    lista[i] = lista[i + 1];
+                    lista[i + 1] = aux;
+                    trocou = true;
+                }
+            }
+        } while (trocou);
 	}
-
+	
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantas datas para acrescentar a lista?" << endl;
