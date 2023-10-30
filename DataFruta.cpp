@@ -2,6 +2,8 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include<cmath>
+#include <ctime>
 
 using namespace std;
 
@@ -10,25 +12,28 @@ class Data {
 	public:
 	
 	static int compara(Data d1, Data d2) { 
-		if (d1.ano < d2.ano){
-			return -1;
-		}else if(d1.ano > d2.ano){
-			return 1;
-		}else {
-			if (d1.mes < d2.mes){
-				return -1;
-			}else if( d1.mes > d2.mes){
-				return 1;
-			}else {
-				if(d1.dia < d2.dia){
-					return -1;
-				} else if( d1.dia > d2.dia){
-					return 1;
-				}else {
-					return 0;
-				}
-			}
-		}
+		
+        tm data1 = {};
+
+        data1.tm_mday = d1.dia;
+        data1.tm_mon = d1.mes;
+        data1.tm_year = d1.ano -1900;
+        mktime(&data1);
+        
+        tm data2 = {};
+
+        data2.tm_mday = d2.dia;
+        data2.tm_mon = d2.mes;
+        data2.tm_year = d2.ano -1900;
+        mktime(&data2);
+
+        if(difftime(mktime(&data1), mktime(&data2)) > 0){
+            return +1;
+        }else if(difftime(mktime(&data1), mktime(&data2)) < 0){
+            return -1;
+        }else{
+            return 0;
+        }
 	}
 
 	Data (int _dia, int _mes, int _ano) {
@@ -54,15 +59,21 @@ class Lista {
 	virtual void mostraMenor() =0;
 	virtual void mostraMaior() =0;
 	virtual void listarEmOrdem()=0;
+	virtual void mostrarNElementos()=0;
 };
 
 class ListaNomes : public Lista{
 	vector<string> lista;
 	
 	public:
-	
+	void mostrarNElementos() override {}
 
 		void listarEmOrdem() override{
+			sort(lista.begin(), lista.end());
+             cout << "Nomes em ordem alfabetica:" << endl;
+             for (const string &nome : lista) {
+             cout << nome << endl;
+        }
 	}
 
 	void entradaDeDados() {
@@ -84,7 +95,7 @@ class ListaNomes : public Lista{
 	}
 	
 	void mostraMediana() {
-		sort(lista.begin(),lista.end());
+		listarEmOrdem();
 		int n = lista.size();
 		if (n%2 != 0){
 			cout << "Mediana encontrada: " << lista[n/2] << endl;
@@ -108,10 +119,27 @@ class ListaDatas : public Lista {
 	vector<Data> lista;
 	
 	public:
+		void mostrarNElementos() override {}
+
+	void listarEmOrdem()override{
+
+		bool trocou;
 		
+		do {
+            trocou = false;
+            for (int i = 0; i < lista.size()-1; i++) {
+                    
+                    int compara = Data::compara(lista[i], lista[i+1]);
 
-	void listarEmOrdem(){
-
+                if (compara == 1) {
+                    Data aux(3,3,3);
+                    aux = lista[i];
+                    lista[i] = lista[i + 1];
+                    lista[i + 1] = aux;
+                    trocou = true;
+                }
+            }
+        } while (trocou);
 	}
 
 	void entradaDeDados() {
@@ -138,7 +166,14 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana 	da lista de datas" << endl;
+		listarEmOrdem();
+
+		int n = lista.size();
+		if (n%2 != 0){
+			cout << "Mediana encontrada: " << lista[n/2].toString() << endl;
+		} else {
+			cout << "Mediana encontrada: " << lista[n/2-1].toString() << endl;
+		}
 	}
 	
 	void mostraMenor() {
@@ -155,7 +190,7 @@ class ListaSalarios : public Lista {
 	vector<float> lista;
 	
 	public:
-
+void mostrarNElementos() override {}
 
 	void entradaDeDados() {
 		int qtd_salarios;
@@ -209,6 +244,7 @@ class ListaSalarios : public Lista {
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
+            cout << "A mediana e: " << lista[i]<< endl;
             cout << "A mediana e: " << lista[i] << endl;
 			}
 		}
@@ -251,9 +287,19 @@ class ListaIdades : public Lista {
 	public:
 
 	void listarEmOrdem() override{
+		if (lista.empty()) {
+            cout << "A lista de idades está vazia!" << endl;
+        } else {
+            sort(lista.begin(), lista.end());
+            cout << "Listando as idades em ordem crescente:" << endl;
+            for (int idade : lista) {
+                cout << idade << " ";
+            }
+            cout << endl;
+        }
  		
 	}
-			
+	 		
 	void entradaDeDados() {
 		int qtd_idades; 
 		cout << "Informe a quantidade de elementos que existirao na lista de idade: " ;
@@ -262,17 +308,22 @@ class ListaIdades : public Lista {
 		for( int i=0; i<qtd_idades; i++){
 			int idade; 
 			cout << "Digite a idade " << i+1 << ":"<<endl;
-			cin >> idade;
+			while (!(cin >> idade) || idade < 0 || idade > 150){
+				cout << " Idade invalida!" << endl;
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max());
+			}
 			lista.push_back(idade);
 		}
 		
 	}
 	
 	void mostraMediana() {
+		listarEmOrdem();
+
 		if (lista.empty()) {
         cout << "Não há termos na lista de idade!" << endl;
     } else {
-        sort(lista.begin(), lista.end());
 
         int n = lista.size();
         double mediana;
@@ -305,6 +356,30 @@ class ListaIdades : public Lista {
 		
 		}
 	}
+
+	void mostrarNElementos() override {
+        if (lista.empty()) {
+            cout << "A lista de idades está vazia!" << endl;
+            return;
+        }
+
+        int N;
+        cout << "Digite o numero de elementos que deseja exibir: ";
+        cin >> N;
+		cout << endl << endl;
+
+        cout << "Os primeiros " << N << " elementos da lista de idades em ordem crescente sao:" << endl;
+        int contador = 0;
+        for (int idade : lista) {
+            cout<<idade << " ";
+            contador++;
+            if (contador >= N) {
+                break;
+            }
+        }
+        cout << endl<< endl;
+    }
+
 };
 
 int main () {
@@ -324,7 +399,10 @@ int main () {
 	
 	ListaIdades listaIdades;
 	listaIdades.entradaDeDados();
+	listaIdades.mostrarNElementos();
 	listaDeListas.push_back(&listaIdades);
+	
+	
 	
 	for (Lista* l : listaDeListas) {
 		l->mostraMediana();
@@ -333,4 +411,3 @@ int main () {
 	}
 	
 }
-
