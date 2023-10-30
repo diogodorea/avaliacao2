@@ -203,6 +203,7 @@ class ListaSalarios : public Lista {
 
 	void mostraMediana() {
 
+		listarEmOrdem();
 		int aux_cont, aux_cont1, aux_cont2;
 		if(lista.size() % 2 != 0){
 			aux_cont = lista.size()/2;
