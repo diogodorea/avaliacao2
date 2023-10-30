@@ -186,7 +186,7 @@ class ListaSalarios : public Lista {
 			aux_cont = lista.size()/2;
 		for(int i=0; i < lista.size(); i++){
 			if(lista[i] == lista[aux_cont]){
-            cout << "A mediana e: " << lista[i];
+            cout << "A mediana e: " << lista[i]<< endl;
 			}
 		}
 	}
@@ -216,7 +216,11 @@ class ListaIdades : public Lista {
 		for( int i=0; i<qtd_idades; i++){
 			int idade; 
 			cout << "Digite a idade " << i+1 << ":"<<endl;
-			cin >> idade;
+			while (!(cin >> idade) || idade < 0 || idade > 150){
+				cout << " Idade invalida!" << endl;
+				cin.clear();
+				cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+			}
 			lista.push_back(idade);
 		}
 		
