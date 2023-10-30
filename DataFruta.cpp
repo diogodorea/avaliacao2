@@ -135,7 +135,7 @@ class ListaDatas : public Lista {
             }
         } while (trocou);
 	}
-	
+
 	void entradaDeDados() {
 		int nEntradas;
 		cout << "Quantas datas para acrescentar a lista?" << endl;
@@ -160,7 +160,14 @@ class ListaDatas : public Lista {
 	}
 	
 	void mostraMediana() {
-		cout << "Aqui vai mostrar a mediana 	da lista de datas" << endl;
+		listarEmOrdem();
+
+		int n = lista.size();
+		if (n%2 != 0){
+			cout << "Mediana encontrada: " << lista[n/2].toString() << endl;
+		} else {
+			cout << "Mediana encontrada: " << lista[n/2-1].toString() << endl;
+		}
 	}
 	
 	void mostraMenor() {
