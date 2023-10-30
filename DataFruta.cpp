@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include <algorithm>
+#include<cmath>
 
 using namespace std;
 
@@ -10,25 +11,28 @@ class Data {
 	public:
 	
 	static int compara(Data d1, Data d2) { 
-		if (d1.ano < d2.ano){
-			return -1;
-		}else if(d1.ano > d2.ano){
-			return 1;
-		}else {
-			if (d1.mes < d2.mes){
-				return -1;
-			}else if( d1.mes > d2.mes){
-				return 1;
-			}else {
-				if(d1.dia < d2.dia){
-					return -1;
-				} else if( d1.dia > d2.dia){
-					return 1;
-				}else {
-					return 0;
-				}
-			}
-		}
+		
+        tm data1 = {};
+
+        data1.tm_mday = d1.dia;
+        data1.tm_mon = d1.mes;
+        data1.tm_year = d1.ano -1900;
+        mktime(&data1);
+        
+        tm data2 = {};
+
+        data2.tm_mday = d2.dia;
+        data2.tm_mon = d2.mes;
+        data2.tm_year = d2.ano -1900;
+        mktime(&data2);
+
+        if(difftime(mktime(&data1), mktime(&data2)) > 0){
+            return +1;
+        }else if(difftime(mktime(&data1), mktime(&data2)) < 0){
+            return -1;
+        }else{
+            return 0;
+        }
 	}
 
 	Data (int _dia, int _mes, int _ano) {
