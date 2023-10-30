@@ -3,6 +3,7 @@
 #include <vector>
 #include <algorithm>
 #include<cmath>
+#include <ctime>
 
 using namespace std;
 
@@ -68,6 +69,11 @@ class ListaNomes : public Lista{
 	void mostrarNElementos() override {}
 
 		void listarEmOrdem() override{
+			sort(lista.begin(), lista.end());
+             cout << "Nomes em ordem alfabetica:" << endl;
+             for (const string &nome : lista) {
+             cout << nome << endl;
+        }
 	}
 
 	void entradaDeDados() {
@@ -89,7 +95,7 @@ class ListaNomes : public Lista{
 	}
 	
 	void mostraMediana() {
-		sort(lista.begin(),lista.end());
+		listarEmOrdem();
 		int n = lista.size();
 		if (n%2 != 0){
 			cout << "Mediana encontrada: " << lista[n/2] << endl;
