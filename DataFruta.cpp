@@ -70,35 +70,34 @@ class ListaNomes : public Lista{
 	void mostrarNElementos() override {
 
 		listarEmOrdem();
-		 int N;
-   		 cout << "Quantos elementos deseja visualizar na lista de nomes?" << endl;
-    	 cin >> N;
+		int N;
+		cout << "Quantos elementos deseja visualizar na lista de nomes?" << endl;
+		cin >> N;
 
-    	if (N >= 0 && N <= lista.size()) {
-        cout << "--Os primeiros " << N << " elementos da lista de nomes sao--" << endl;
-        for (int i = 0; i < N; i++) {
-            cout << lista[i] << endl;
-        }
-    } else {
-        cout << "Número invalido de elementos." << endl;
-    	}
+		if (N >= 0 && N <= lista.size()) {
+			cout << "--Os primeiros " << N << " elementos da lista de nomes sao--" << endl;
+			for (int i = 0; i < N; i++) {
+				cout << lista[i] << endl;
+			}
+		} else {
+			cout << "Número invalido de elementos." << endl;
+		}
 	}
-
 
 		void listarEmOrdem() override{
 			sort(lista.begin(), lista.end());
-			cout << "-- Os nomes em ordem alfabetica sao--"<<endl;
-             for (const string &nome : lista) {
-             cout << nome << endl;
-        }
-	}
+		}
 
 	void entradaDeDados() {
 		int nEntradas;
+		bool verifica = false;
+		do {
+
 		cout << "Quantos nomes para acrescentar a lista? " << endl;
 		cin >> nEntradas;
 
-		if (nEntradas >=1){
+		if (!cin.fail() && nEntradas >=1){
+			verifica = true;
 			cin.ignore();
 			for (int i=0 ; i < nEntradas; i++){
 				string  nome;
@@ -107,10 +106,13 @@ class ListaNomes : public Lista{
 				lista.push_back(nome);
 			}
 		} else{
-			cout << "Entrada invalida. " << endl;
+			cout << "Informe um valor numerico valido e maior ou igual a 1." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n');
 		}
+		} while (!verifica);
 		cout << endl ;
-	}
+		}
 	
 	void mostraMediana() {
 		listarEmOrdem();
@@ -138,21 +140,19 @@ class ListaDatas : public Lista {
 	
 	public:
 		void mostrarNElementos() override {
-
 			listarEmOrdem();
-		 int N;
-   		 cout << "Quantos elementos deseja visualizar na lista de Datas?" << endl;
-    	 cin >> N;
-		
-    	if (N >= 0 && N <= lista.size()) {
-        cout << "--Os primeiros " << N << " elementos da lista de datas sao-- " << endl;
-        for (int i = 0; i < N; i++) {
-            cout << lista[i].toString() << endl;
-        }
-    } else {
-        cout << "Número inválido de elementos." << endl;
-    	}
-
+			int N;
+			cout << "Quantos elementos deseja visualizar na lista de Datas?" << endl;
+			cin >> N;
+			
+			if (N >= 0 && N <= lista.size()) {
+			cout << "--Os primeiros " << N << " elementos da lista de datas sao-- " << endl;
+			for (int i = 0; i < N; i++) {
+				cout << lista[i].toString() << endl;
+			}
+			} else {
+			cout << "Número inválido de elementos." << endl;
+			}
 		}
 
 	void listarEmOrdem() override {
@@ -178,10 +178,15 @@ class ListaDatas : public Lista {
 
 	void entradaDeDados() {
 		int nEntradas;
+		bool verifica = false;
+
+		do {
+
 		cout << "Quantas datas para acrescentar a lista?" << endl;
 		cin >> nEntradas;
 
-		if (nEntradas >=1){
+		if (!cin.fail() && nEntradas >=1){
+			verifica = true;
 			cin.ignore();
 			for (int i=0 ; i < nEntradas; i++){
 				int auxDia, auxMes, AuxAno;
@@ -195,8 +200,11 @@ class ListaDatas : public Lista {
 				lista.push_back(data);
 			}
 		} else{
-			cout << "Entrada invalida." << endl;
+			cout << "Informe um valor numerico valido e maior ou igual a 1." << endl;
+			cin.clear();
+			cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
 		}
+		} while (!verifica);
 		cout << endl ;
 	}
 	
@@ -251,12 +259,12 @@ class ListaSalarios : public Lista {
         cin.ignore(numeric_limits<streamsize>::max(), '\n'); 
     }
 
-} while (!verifica);
- 	cout << endl ;
+	} while (!verifica);
+	cout << endl ;
 	}
 
 	void listarEmOrdem() override{
- 		bool trocou;
+		bool trocou;
 		double aux;
 		int n = lista.size() - 1;
 		do {
@@ -276,7 +284,7 @@ class ListaSalarios : public Lista {
 	void mostrarNElementos() override {
 		
 		listarEmOrdem();
-	 	int Num_elementos;
+		int Num_elementos;
         cout << "Digite o numero de elementos que deseja exibir da lista de salarios: ";
         cin >> Num_elementos;
 		cout << endl << endl;
@@ -306,10 +314,10 @@ class ListaSalarios : public Lista {
 			}
 		}
 	}else {
-		 aux_cont1 = (lista.size()/2)-1;
-		 aux_cont2 = (lista.size()/2);
-		 cout << "--A mediana do salario eh-- " <<endl<< (lista[aux_cont1] + lista[aux_cont2]) /2 << endl;
-	  }
+		aux_cont1 = (lista.size()/2)-1;
+		aux_cont2 = (lista.size()/2);
+		cout << "--A mediana do salario eh-- " <<endl<< (lista[aux_cont1] + lista[aux_cont2]) /2 << endl;
+	}
 	}
 	
 	void mostraMenor() {
@@ -320,7 +328,7 @@ class ListaSalarios : public Lista {
 				num_menor = lista[i];
 			}
 		}
-		  cout << "--O menor dos salarios eh-- " << endl<< num_menor << endl;
+		cout << "--O menor dos salarios eh-- " << endl<< num_menor << endl;
 	}
 	
 	void mostraMaior() {
@@ -351,7 +359,7 @@ class ListaIdades : public Lista {
             sort(lista.begin(), lista.end());
 		}
 	}
-	 		
+
 	void entradaDeDados() {
 		int qtd_idades; 
 		cout << "Informe a quantidade de elementos que existirao na lista de idade: " ;
@@ -387,7 +395,7 @@ class ListaIdades : public Lista {
         }
 
         cout << "--A mediana da lista de idades--" << endl << mediana << endl;
-    	}
+    }
 	}
 	
 	void mostraMenor() {
